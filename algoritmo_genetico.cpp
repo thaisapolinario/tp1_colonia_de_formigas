@@ -63,8 +63,8 @@ vector<int> selecao_torneio(const vector<vector<int>>& populacao, const vector<d
 }
 
 // Crossover Ordenado (OX)
-vector<int> ordenar_crossover(const vector<int>& balde, const vector<int>& pai2, mt19937& rng) {
-    int numcidades = balde.size();
+vector<int> ordenar_crossover(const vector<int>& pai1, const vector<int>& pai2, mt19937& rng) {
+    int numcidades = pai1.size();
     uniform_int_distribution<int> dist(0, numcidades - 1);
     
     int inicio = dist(rng);
@@ -76,8 +76,8 @@ vector<int> ordenar_crossover(const vector<int>& balde, const vector<int>& pai2,
 
     // Copia um trecho do Pai 1
     for (int i = inicio; i <= fim; ++i) {
-        filho[i] = balde[i];
-        em_filho[balde[i]] = true;
+        filho[i] = pai1[i];
+        em_filho[pai1[i]] = true;
     }
 
     // Preenche o resto com o Pai 2
@@ -140,14 +140,14 @@ int main() {
         // Gera o restante da população
         uniform_real_distribution<double> probDist(0.0, 1.0);
         while (nova_populacao.size() < TAM_POPULACAO) {
-            vector<int> balde = selecao_torneio(populacao, distancias, rng);
+            vector<int> pai1 = selecao_torneio(populacao, distancias, rng);
             vector<int> pai2 = selecao_torneio(populacao, distancias, rng);
             
             vector<int> filho;
             if (probDist(rng) < TAXA_CROSSOVER) {
-                filho = ordenar_crossover(balde, pai2, rng);
+                filho = ordenar_crossover(pai1, pai2, rng);
             } else {
-                filho = balde;
+                filho = pai1;
             }
 
             mutar(filho, rng);
