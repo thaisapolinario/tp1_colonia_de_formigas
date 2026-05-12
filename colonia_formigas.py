@@ -38,9 +38,15 @@ def matriz_distancias (coordenadas):
 
 
 class ColoniaFormigas:
+    # =========================================================
+    # HIPERPARÂMETROS - CONFIGURAÇÃO FORTE
+    # =========================================================
+    # def __init__ (self, coordenadas, num_formigas = 8, num_iteracoes = 50, alfa = 0.8, beta = 1.2, evaporacao = 0.7, Q = 30.0):
 
-
-    def __init__ (self, coordenadas, num_formigas = 20, num_iteracoes = 200, alfa = 1.0, beta = 2.0, evaporacao = 0.5, Q = 100.0):
+    # =========================================================
+    # HIPERPARÂMETROS - CONFIGURAÇÃO FORTE
+    # =========================================================
+    def __init__ (self, coordenadas, num_formigas = 15, num_iteracoes = 120, alfa = 1.0, beta = 1.8, evaporacao = 0.45, Q = 70.0):
 
         self.coordenadas = coordenadas
         self.num_cidades = len (coordenadas)
