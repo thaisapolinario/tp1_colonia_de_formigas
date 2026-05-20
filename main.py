@@ -175,3 +175,88 @@ if statistics.stdev(resultados_aco["distancias"]) < statistics.stdev(resultados_
     print("ACO foi mais estável.")
 else:
     print("GA foi mais estável.")
+
+
+# =========================================================
+# GRÁFICOS
+# =========================================================
+
+# gráfico mostra a evolução média da melhor distância ao longo das iterações/gerações nas 100 execuções
+def plot_convergencia(resultados_aco, resultados_ga):
+    
+    # média das convergências (suaviza o gráfico)
+    media_aco = np.mean(resultados_aco["convergencias"], axis=0)
+    media_ga = np.mean(resultados_ga["convergencias"], axis=0)
+
+    plt.figure()
+
+    plt.plot(media_aco, label="ACO")
+    plt.plot(media_ga, label="GA")
+
+    plt.xlabel("Iterações / Gerações")
+    plt.ylabel("Melhor distância")
+    plt.title("Convergência dos Algoritmos")
+
+    plt.legend()
+    plt.grid()
+
+    plt.show()
+
+# gráfico mostra a variação das distâncias finais por execução, utilizando boxplot (avalia a estabilidade dos algoritmos)
+def plot_boxplot(resultados_aco, resultados_ga):
+
+    plt.figure()
+
+    plt.boxplot(
+        [resultados_aco["distancias"], resultados_ga["distancias"]],
+        labels=["ACO", "GA"]
+    )
+
+    plt.ylabel("Distância")
+    plt.title("Distribuição das Soluções")
+
+    plt.grid()
+
+    plt.show()
+
+# gráfico apresenta o tempo médio de execução de cada algoritmo nas 100 execuções
+def plot_tempo(resultados_aco, resultados_ga):
+
+    medias = [
+        np.mean(resultados_aco["tempos"]),
+        np.mean(resultados_ga["tempos"])
+    ]
+
+    plt.figure()
+
+    plt.bar(["ACO", "GA"], medias)
+
+    plt.ylabel("Tempo médio (s)")
+    plt.title("Tempo Médio de Execução")
+
+    plt.grid()
+
+    plt.show()
+
+# gráfico mostra a distância final obtida em cada execução para ambos os algoritmoss
+def plot_execucoes(resultados_aco, resultados_ga):
+
+    plt.figure()
+
+    plt.plot(resultados_aco["distancias"], label="ACO", alpha=0.7)
+    plt.plot(resultados_ga["distancias"], label="GA", alpha=0.7)
+
+    plt.xlabel("Execução")
+    plt.ylabel("Distância")
+    plt.title("Distância por Execução")
+
+    plt.legend()
+    plt.grid()
+
+    plt.show()
+
+
+plot_convergencia(resultados_aco, resultados_ga)
+plot_boxplot(resultados_aco, resultados_ga)
+plot_tempo(resultados_aco, resultados_ga)
+plot_execucoes(resultados_aco, resultados_ga)
